@@ -57,6 +57,7 @@ namespace Task01
             catch (OverflowException)
             {
                 Console.WriteLine("OverflowException");
+                return;
             }
 
             // использовать синтаксис запросов!
