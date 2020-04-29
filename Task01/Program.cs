@@ -54,6 +54,10 @@ namespace Task01
                 Console.WriteLine("FormatException");
                 return;
             }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
+            }
 
             // использовать синтаксис запросов!
             IEnumerable<int> arrQuery = from x in arr
@@ -71,10 +75,6 @@ namespace Task01
             catch (InvalidOperationException)
             {
                 Console.WriteLine("InvalidOperationException");
-            }
-            catch (OverflowException)
-            {
-                Console.WriteLine("OverflowException");
             }
         }
 
