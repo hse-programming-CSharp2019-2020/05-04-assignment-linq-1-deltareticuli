@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 
 /* В задаче не использовать циклы for, while. Все действия по обработке данных выполнять с использованием LINQ
@@ -69,13 +70,12 @@ namespace Task02
                     double averageUsingInstanceForm = filteredCollection.Select(x => x * x).Average();
 
 
-                    Console.WriteLine($"{averageUsingStaticForm:f3}");
-                    Console.WriteLine($"{averageUsingInstanceForm:f3}");
+                    Console.WriteLine(averageUsingStaticForm.ToString("f3", CultureInfo.GetCultureInfo("ru-RU")));
+                    Console.WriteLine(averageUsingInstanceForm.ToString("f3", CultureInfo.GetCultureInfo("ru-RU")));
                 }
 
                 // вывести элементы коллекции в одну строку
                 Console.WriteLine(filteredCollection.Select(x => x.ToString()).Aggregate((a, b) => $"{a} {b}"));
-                Console.WriteLine();
             }
             catch (InvalidOperationException)
             {
