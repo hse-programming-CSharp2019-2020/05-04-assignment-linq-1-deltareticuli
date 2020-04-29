@@ -61,14 +61,17 @@ namespace Task02
 
             try
             {
+                checked
+                {
+                    // использовать статическую форму вызова метода подсчета среднего
+                    double averageUsingStaticForm = Enumerable.Average(filteredCollection.Select(x => x * x));
+                    // использовать объектную форму вызова метода подсчета среднего
+                    double averageUsingInstanceForm = filteredCollection.Select(x => x * x).Average();
 
-                // использовать статическую форму вызова метода подсчета среднего
-                double averageUsingStaticForm = Enumerable.Average(filteredCollection.Select(x => x * x));
-                // использовать объектную форму вызова метода подсчета среднего
-                double averageUsingInstanceForm = filteredCollection.Select(x => x * x).Average();
 
-                Console.WriteLine($"{averageUsingStaticForm:f3}");
-                Console.WriteLine($"{averageUsingInstanceForm:f3}");
+                    Console.WriteLine($"{averageUsingStaticForm:f3}");
+                    Console.WriteLine($"{averageUsingInstanceForm:f3}");
+                }
 
                 // вывести элементы коллекции в одну строку
                 Console.WriteLine(filteredCollection.Select(x => x.ToString()).Aggregate((a, b) => $"{a} {b}"));
@@ -76,6 +79,10 @@ namespace Task02
             catch (InvalidOperationException)
             {
                 Console.WriteLine("InvalidOperationException");
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
             }
         }
 
