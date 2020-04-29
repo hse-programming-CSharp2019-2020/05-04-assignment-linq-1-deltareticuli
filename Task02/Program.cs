@@ -42,26 +42,42 @@ namespace Task02
             try
             {
                 // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = 
+                arr = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => int.Parse(x)).ToArray();
             }
-            
-            
-            var filteredCollection = arr.
-           
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
+                return;
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
+                return;
+            }
+
+
+            var filteredCollection = arr.TakeWhile(x => x != 0);
+
             try
             {
-                
-                // использовать статическую форму вызова метода подсчета среднего
-                double averageUsingStaticForm = 
-                // использовать объектную форму вызова метода подсчета среднего
-                double averageUsingInstanceForm = 
 
+                // использовать статическую форму вызова метода подсчета среднего
+                double averageUsingStaticForm = Enumerable.Average(filteredCollection.Select(x => x * x));
+                // использовать объектную форму вызова метода подсчета среднего
+                double averageUsingInstanceForm = filteredCollection.Select(x => x * x).Average();
+
+                Console.WriteLine($"{averageUsingStaticForm:f3}");
+                Console.WriteLine($"{averageUsingInstanceForm:f3}");
 
                 // вывести элементы коллекции в одну строку
-                filteredCollection.
+                Console.WriteLine(filteredCollection.Select(x => x.ToString()).Aggregate((a, b) => $"{a} {b}"));
             }
-          
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("InvalidOperationException");
+            }
         }
-        
+
     }
 }
