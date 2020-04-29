@@ -75,6 +75,7 @@ namespace Task02
 
                 // вывести элементы коллекции в одну строку
                 Console.WriteLine(filteredCollection.Select(x => x.ToString()).Aggregate((a, b) => $"{a} {b}"));
+                Console.WriteLine();
             }
             catch (InvalidOperationException)
             {
