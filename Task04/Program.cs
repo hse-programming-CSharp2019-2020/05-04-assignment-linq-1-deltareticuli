@@ -43,9 +43,12 @@ namespace Task04
             int[] arr;
             try
             {
-                // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(x => int.Parse(x)).ToArray();
+                checked
+                {
+                    // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
+                    arr = Console.ReadLine().Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(x => int.Parse(x)).ToArray();
+                }
             }
             catch (FormatException)
             {
