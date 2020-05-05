@@ -50,34 +50,39 @@ using System.Linq;
  */
 namespace Task03
 {
-    enum Manufacturer
+    internal enum Manufacturer
     {
         Dell,
         Asus,
         Apple,
         Microsoft
     }
-    class Program
+
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             int N;
             List<ComputerInfo> computerInfoList = new List<ComputerInfo>();
             try
             {
                 N = int.Parse(Console.ReadLine());
-                if (N <= 0) 
+                if (N <= 0)
+                {
                     throw new ArgumentException();
+                }
 
                 for (int i = 0; i < N; i++)
                 {
-                    string[] info = Console.ReadLine().Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
-                    if (!Enum.IsDefined(typeof(Manufacturer), info[2])) 
+                    string[] info = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (!Enum.IsDefined(typeof(Manufacturer), info[2]))
+                    {
                         throw new ArgumentException();
+                    }
 
                     computerInfoList.Add(new ComputerInfo()
                     {
-                        ComputerManufacturer = (Manufacturer) int.Parse(info[2]),
+                        ComputerManufacturer = (Manufacturer)int.Parse(info[2]),
                         Year = int.Parse(info[1]),
                         Owner = info[0]
                     });
@@ -98,12 +103,12 @@ namespace Task03
                 Console.WriteLine("ArgumentException");
                 return;
             }
-           
+
 
             // выполните сортировку одним выражением
             var computerInfoQuery = from x in computerInfoList
-                orderby x.Owner descending, x.ComputerManufacturer.ToString(), x.Year descending 
-                select x;
+                                    orderby x.Owner descending, x.ComputerManufacturer.ToString(), x.Year descending
+                                    select x;
 
             PrintCollectionInOneLine(computerInfoQuery);
 
@@ -124,8 +129,7 @@ namespace Task03
         }
     }
 
-
-    class ComputerInfo
+    internal class ComputerInfo
     {
         public string Owner { get; set; }
         public int Year { get; set; }

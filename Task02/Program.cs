@@ -30,9 +30,9 @@ using System.Linq;
  */
 namespace Task02
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             RunTesk02();
         }
@@ -56,7 +56,6 @@ namespace Task02
                 Console.WriteLine("OverflowException");
                 return;
             }
-
 
             var filteredCollection = arr.TakeWhile(x => x != 0);
 

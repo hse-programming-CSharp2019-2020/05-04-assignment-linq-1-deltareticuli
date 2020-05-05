@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 /* В задаче не использовать циклы for, while. Все действия по обработке данных выполнять с использованием LINQ
  * 
@@ -33,9 +30,9 @@ using System.Threading.Tasks;
 
 namespace Task01
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             RunTesk01();
         }
@@ -62,8 +59,8 @@ namespace Task01
 
             // использовать синтаксис запросов!
             IEnumerable<int> arrQuery = from x in arr
-                where (x % 2 == 0 || x < 0)
-                select x;
+                                        where (x % 2 == 0 || x < 0)
+                                        select x;
 
             // использовать синтаксис методов!
             IEnumerable<int> arrMethod = arr.Where(x => x % 2 == 0 || x < 0);

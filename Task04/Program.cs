@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 /*
  * На вход подается строка, состоящая из целых чисел типа int, разделенных одним или несколькими пробелами.
@@ -6,7 +7,7 @@
  * Это необходимо сделать двумя способами:
  * 1) с помощью встроенного LINQ метода Aggregate
  * 2) с помощью своего метода MyAggregate, сигнатура которого дана в классе MyClass
- * Вывести полученные результаты на экран (естесственно, они должны быть одинаковыми)
+ * Вывести полученные результаты на экран (естественно, они должны быть одинаковыми)
  * 
  * Пример входных данных:
  * 1 2 3 4 5
@@ -30,9 +31,9 @@
 
 namespace Task04
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             RunTesk04();
         }
@@ -43,26 +44,44 @@ namespace Task04
             try
             {
                 // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = 
+                arr = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => int.Parse(x)).ToArray();
             }
-           
-                // использовать синтаксис методов! SQL-подобные запросы не писать!
-               
-                int arrAggregate = arr.
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
+                return;
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
+                return;
+            }
 
-                int arrMyAggregate = MyClass.MyAggregate(arr);
+            // использовать синтаксис методов! SQL-подобные запросы не писать!
 
-                Console.WriteLine(arrAggregate);
-                Console.WriteLine(arrMyAggregate);
-           
+            int arrAggregate = 5 + arr.Aggregate((x, y) => x + (y % 2 == 0 ? -y : y)); // wtf
+            // int arrAggregate = 5 + arr.Aggregate((x, y) => x + y - (2 * (1 - y % 2) * y)); // wtf^2
+
+            int arrMyAggregate = MyClass.MyAggregate(arr);
+
+            Console.WriteLine(arrAggregate);
+            Console.WriteLine(arrMyAggregate);
         }
     }
 
-    static class MyClass
+    internal static class MyClass
     {
-        public static int MyAggregate()
+        public static int MyAggregate(int[] arr)
         {
-            
+            int res = 5;
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                res += i % 2 == 0 ? arr[i] : -arr[i];
+            }
+
+            return res;
         }
     }
 }
