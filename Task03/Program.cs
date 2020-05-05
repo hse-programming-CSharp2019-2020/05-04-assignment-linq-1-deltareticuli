@@ -62,6 +62,9 @@ namespace Task03
     {
         private static void Main(string[] args)
         {
+            Console.InputEncoding = System.Text.Encoding.UTF8;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             int N;
             List<ComputerInfo> computerInfoList = new List<ComputerInfo>();
             try
@@ -69,16 +72,12 @@ namespace Task03
                 N = int.Parse(Console.ReadLine());
                 if (N <= 0)
                 {
-                    throw new ArgumentException();
+                    throw new FormatException();
                 }
 
                 for (int i = 0; i < N; i++)
                 {
                     string[] info = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (!Enum.IsDefined(typeof(Manufacturer), int.Parse(info[2])))
-                    {
-                        throw new ArgumentException();
-                    }
 
                     computerInfoList.Add(new ComputerInfo()
                     {
@@ -131,9 +130,38 @@ namespace Task03
 
     internal class ComputerInfo
     {
+        private int year;
+        private Manufacturer computerManufacturer;
+
         public string Owner { get; set; }
-        public int Year { get; set; }
-        public Manufacturer ComputerManufacturer { get; set; }
+
+        public int Year
+        {
+            get => year;
+            set
+            {
+                if (value < 1970 || value > 2020)
+                {
+                    throw new ArgumentException();
+                }
+
+                year = value;
+            }
+        }
+
+        public Manufacturer ComputerManufacturer
+        {
+            get => computerManufacturer;
+            set
+            {
+                if ((int) value < 0 || (int) value > 3)
+                {
+                    throw new ArgumentException();
+                }
+
+                computerManufacturer = value;
+            }
+        }
 
         public override string ToString()
         {
