@@ -43,33 +43,32 @@ namespace Task04
             int[] arr;
             try
             {
-                checked
-                {
-                    // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                    arr = Console.ReadLine().Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries)
-                        .Select(x => int.Parse(x)).ToArray();
-                }
+                // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
+                arr = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => int.Parse(x)).ToArray();
             }
             catch (FormatException)
             {
                 Console.WriteLine("FormatException");
                 return;
             }
+
+            try
+            {
+                checked
+                {
+                    // использовать синтаксис методов! SQL-подобные запросы не писать!
+                    int arrAggregate = 5 + arr.Aggregate((x, y) => x + (y % 2 == 0 ? -y : y));
+
+                    int arrMyAggregate = MyClass.MyAggregate(arr);
+                    Console.WriteLine(arrAggregate);
+                    Console.WriteLine(arrMyAggregate);
+                }
+            }
             catch (OverflowException)
             {
                 Console.WriteLine("OverflowException");
-                return;
             }
-
-            // использовать синтаксис методов! SQL-подобные запросы не писать!
-
-            int arrAggregate = 5 + arr.Aggregate((x, y) => x + (y % 2 == 0 ? -y : y)); // wtf
-            // int arrAggregate = 5 + arr.Aggregate((x, y) => x + y - (2 * (1 - y % 2) * y)); // wtf^2
-
-            int arrMyAggregate = MyClass.MyAggregate(arr);
-
-            Console.WriteLine(arrAggregate);
-            Console.WriteLine(arrMyAggregate);
         }
     }
 
