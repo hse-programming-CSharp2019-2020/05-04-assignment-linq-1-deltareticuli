@@ -57,8 +57,10 @@ namespace Task04
             {
                 checked
                 {
+                    int i = 0;
                     // использовать синтаксис методов! SQL-подобные запросы не писать!
-                    int arrAggregate = 5 + arr.Aggregate((x, y) => x + (y % 2 == 0 ? -y : y));
+                    int arrAggregate = arr.Aggregate(5, (total, next) =>
+                        ++i % 2 == 0 ? total - next : total + next);
 
                     int arrMyAggregate = MyClass.MyAggregate(arr);
                     Console.WriteLine(arrAggregate);
