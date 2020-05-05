@@ -86,14 +86,17 @@ namespace Task03
             catch (FormatException)
             {
                 Console.WriteLine("FormatException");
+                return;
             }
             catch (OverflowException)
             {
                 Console.WriteLine("OverflowException");
+                return;
             }
             catch (ArgumentException)
             {
                 Console.WriteLine("ArgumentException");
+                return;
             }
            
 
@@ -112,14 +115,12 @@ namespace Task03
                 .ThenByDescending(x => x.Year);
 
             PrintCollectionInOneLine(computerInfoMethods);
-            
         }
 
         // выведите элементы коллекции на экран с помощью кода, состоящего из одной линии (должна быть одна точка с запятой)
         public static void PrintCollectionInOneLine(IEnumerable<ComputerInfo> collection)
         {
-            if (collection.Any()) 
-                Console.WriteLine(string.Join(Environment.NewLine, collection));
+            Console.WriteLine(string.Join(Environment.NewLine, collection));
         }
     }
 
