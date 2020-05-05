@@ -75,7 +75,7 @@ namespace Task03
                 for (int i = 0; i < N; i++)
                 {
                     string[] info = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (!Enum.IsDefined(typeof(Manufacturer), info[2]))
+                    if (!Enum.IsDefined(typeof(Manufacturer), int.Parse(info[2])))
                     {
                         throw new ArgumentException();
                     }
