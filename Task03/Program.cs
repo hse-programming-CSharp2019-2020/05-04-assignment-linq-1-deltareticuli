@@ -50,32 +50,66 @@ using System.Linq;
  */
 namespace Task03
 {
+    enum Manufacturer
+    {
+        Dell,
+        Asus,
+        Apple,
+        Microsoft
+    }
     class Program
     {
         static void Main(string[] args)
         {
-            int N
+            int N;
             List<ComputerInfo> computerInfoList = new List<ComputerInfo>();
             try
             {
-                N = 
-                
+                N = int.Parse(Console.ReadLine());
+                if (N <= 0) 
+                    throw new ArgumentException();
+
                 for (int i = 0; i < N; i++)
                 {
-                    
+                    string[] info = Console.ReadLine().Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+                    if (!Enum.IsDefined(typeof(Manufacturer), info[2])) 
+                        throw new ArgumentException();
+
+                    computerInfoList.Add(new ComputerInfo()
+                    {
+                        ComputerManufacturer = (Manufacturer) int.Parse(info[2]),
+                        Year = int.Parse(info[1]),
+                        Owner = info[0]
+                    });
                 }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("ArgumentException");
             }
            
 
             // выполните сортировку одним выражением
-            var computerInfoQuery = from 
+            var computerInfoQuery = from x in computerInfoList
+                orderby x.Owner descending, x.ComputerManufacturer.ToString(), x.Year descending 
+                select x;
 
             PrintCollectionInOneLine(computerInfoQuery);
 
             Console.WriteLine();
 
             // выполните сортировку одним выражением
-            var computerInfoMethods = computerInfoList.
+            var computerInfoMethods = computerInfoList.OrderByDescending(x => x.Owner)
+                .ThenBy(x => x.ComputerManufacturer.ToString())
+                .ThenByDescending(x => x.Year);
 
             PrintCollectionInOneLine(computerInfoMethods);
             
@@ -84,6 +118,8 @@ namespace Task03
         // выведите элементы коллекции на экран с помощью кода, состоящего из одной линии (должна быть одна точка с запятой)
         public static void PrintCollectionInOneLine(IEnumerable<ComputerInfo> collection)
         {
+            if (collection.Any()) 
+                Console.WriteLine(string.Join(Environment.NewLine, collection));
         }
     }
 
@@ -91,7 +127,12 @@ namespace Task03
     class ComputerInfo
     {
         public string Owner { get; set; }
+        public int Year { get; set; }
         public Manufacturer ComputerManufacturer { get; set; }
-        
+
+        public override string ToString()
+        {
+            return $"{Owner}: {ComputerManufacturer} [{Year}]";
+        }
     }
 }
